@@ -1384,7 +1384,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #0d83ff;
+  background: #e90fff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2723,4 +2723,157 @@ header.header {
   .sidebar-active .footer-fixed {
     left: 320px;
   }
+}
+/* 数学内容容器基础样式（优化公式兼容性） */
+.math-container {
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+/* 关键：避免干扰公式渲染 */
+  font-size: inherit; /* 继承父级字体大小，防止公式缩放异常 */
+  line-height: normal; /* 重置行高，避免公式垂直偏移 */
+}
+.math-container:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+/* 标题样式（不影响公式） */
+.math-container .math-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.math-title::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+/* 内容区（核心：兼容 LaTeX 公式） */
+.math-container .math-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #333;
+/* 允许公式溢出时换行（避免块级公式超出容器） */
+  overflow-x: auto;
+  padding-bottom: 0.5rem; /* 给溢出公式留底部空间 */
+}
+/* --------------- 公式渲染专属优化 --------------- */
+/* 行内公式（$...$）垂直对齐 */
+.math-content .katex,
+.math-content mathjax {
+  vertical-align: middle !important; /* 避免行内公式上下偏移 */
+  font-size: 1.05em !important; /* 公式比文字略大，更清晰 */
+}
+/* 块级公式（$$...$$ 或 \[...\]）居中+适配 */
+.math-content .katex-display,
+.math-content mathjax[display] {
+  display: flex !important;
+  justify-content: center !important;
+  margin: 1rem 0 !important; /* 公式上下留白 */
+  padding: 0.5rem 0 !important;
+  overflow-x: auto !important; /* 长公式横向滚动 */
+}
+/* 避免 CSS 遮挡公式 */
+.math-content *:not(.katex,
+mathjax,
+.katex-display) {
+  z-index: 1;
+}
+/* --------------- 原有类型样式（保持不变） --------------- */
+.math-definition {
+  background-color: #f0f8ff;
+  border-left: 4px solid #4299e1;
+}
+.math-definition .math-title {
+  color: #2d7dd2;
+}
+.math-definition .math-title::before {
+  background-color: #4299e1;
+  content: "定";
+}
+.math-theorem {
+  background-color: #faf0f5;
+  border-left: 4px solid #9f7aea;
+}
+.math-theorem .math-title {
+  color: #805ad5;
+}
+.math-theorem .math-title::before {
+  background-color: #9f7aea;
+  content: "理";
+}
+.math-example {
+  background-color: #f5fafe;
+  border-left: 4px solid #48bb78;
+}
+.math-example .math-title {
+  color: #38a169;
+}
+.math-example .math-title::before {
+  background-color: #48bb78;
+  content: "例";
+}
+.math-exercise {
+  background-color: #fffaf0;
+  border-left: 4px solid #ed8936;
+}
+.math-exercise .math-title {
+  color: #dd6b20;
+}
+.math-exercise .math-title::before {
+  background-color: #ed8936;
+  content: "练";
+}
+.math-problem {
+  background-color: #fef7fb;
+  border-left: 4px solid #e53e3e;
+}
+.math-problem .math-title {
+  color: #c53030;
+}
+.math-problem .math-title::before {
+  background-color: #e53e3e;
+  content: "题";
+}
+/* 响应式适配 */
+@media (max-width: 768px) {
+  .math-container {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .math-container .math-title {
+    font-size: 1rem;
+  }
+  .math-container .math-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  .math-content .katex-display {
+    font-size: 0.95em !important;
+  }
+}
+/* 编号功能 */
+.math-container[data-number]::after {
+  content: "No." attr(data-number);
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  font-size: 0.8rem;
+  color: #888;
+  opacity: 0.7;
+  z-index: 0; /* 避免编号遮挡公式 */
 }
