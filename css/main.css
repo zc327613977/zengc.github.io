@@ -1384,7 +1384,7 @@ pre code {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #9932e2;
+  background: #6e2fff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -2753,9 +2753,9 @@ header.header {
 .math-title::before {
   content: "";
   display: inline-block;
-  width: 24px;
+  width: 48px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: 35%;
   text-align: center;
   line-height: 24px;
   color: #fff;
@@ -2803,7 +2803,7 @@ mathjax,
 }
 .math-definition .math-title::before {
   background-color: #4299e1;
-  content: "定";
+  content: "定义";
 }
 .math-theorem {
   background-color: #faf0f5;
@@ -2814,7 +2814,7 @@ mathjax,
 }
 .math-theorem .math-title::before {
   background-color: #9f7aea;
-  content: "理";
+  content: "定理";
 }
 .math-example {
   background-color: #f5fafe;
@@ -2825,7 +2825,7 @@ mathjax,
 }
 .math-example .math-title::before {
   background-color: #48bb78;
-  content: "例";
+  content: "例题";
 }
 .math-exercise {
   background-color: #fffaf0;
@@ -2836,7 +2836,7 @@ mathjax,
 }
 .math-exercise .math-title::before {
   background-color: #ed8936;
-  content: "练";
+  content: "练习";
 }
 .math-problem {
   background-color: #fef7fb;
@@ -2847,7 +2847,7 @@ mathjax,
 }
 .math-problem .math-title::before {
   background-color: #e53e3e;
-  content: "题";
+  content: "习题";
 }
 /* 响应式适配 */
 @media (max-width: 768px) {
